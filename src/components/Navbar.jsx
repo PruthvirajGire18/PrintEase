@@ -9,22 +9,62 @@ function Navbar() {
   const isLoggedIn = !!user.token;
 
   return (
-    <nav className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xl sticky top-0 z-50">
+    <nav className="backdrop-blur-lg bg-white/70 border-b border-gray-200 shadow-sm sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
-        <div className="text-2xl font-extrabold tracking-wide">PrintEase</div>
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent tracking-tight hover:opacity-90 transition"
+        >
+          PrintEase
+        </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex space-x-6 items-center font-semibold text-lg">
-          {!isLoggedIn && <Link to="/login" className="hover:text-gray-200 transition">Login</Link>}
+        <div className="hidden md:flex items-center space-x-8 font-medium text-gray-700">
+          {!isLoggedIn && (
+            <Link
+              to="/login"
+              className="hover:text-blue-600 transition duration-300"
+            >
+              Login
+            </Link>
+          )}
+
           {isLoggedIn && (
             <>
-              <Link to="/upload" className="hover:text-gray-200 transition">Upload</Link>
-              <Link to="/track" className="hover:text-gray-200 transition">Track</Link>
-              {user.role === "user" && <Link to="/dashboard" className="hover:text-gray-200 transition">Dashboard</Link>}
-              {user.role === "admin" && <Link to="/admin" className="hover:text-gray-200 transition">Admin</Link>}
+              <Link
+                to="/upload"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                Upload
+              </Link>
+              <Link
+                to="/track"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                Track
+              </Link>
+
+              {user.role === "user" && (
+                <Link
+                  to="/dashboard"
+                  className="hover:text-blue-600 transition duration-300"
+                >
+                  Dashboard
+                </Link>
+              )}
+              {user.role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="hover:text-blue-600 transition duration-300"
+                >
+                  Admin
+                </Link>
+              )}
+
               <button
                 onClick={logout}
-                className="bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 transition shadow-sm"
+                className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition duration-300 shadow-sm"
               >
                 Logout
               </button>
@@ -33,31 +73,78 @@ function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden cursor-pointer" onClick={() => setOpen(!open)}>
+        <div
+          className="md:hidden cursor-pointer text-gray-700"
+          onClick={() => setOpen(!open)}
+        >
           {open ? <X size={26} /> : <Menu size={26} />}
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-blue-700 text-white px-6 py-3 space-y-2 font-medium">
-          {!isLoggedIn && <Link to="/login" className="block hover:text-gray-200 transition">Login</Link>}
-          {isLoggedIn && (
-            <>
-              <Link to="/upload" className="block hover:text-gray-200 transition">Upload</Link>
-              <Link to="/track" className="block hover:text-gray-200 transition">Track</Link>
-              {user.role === "user" && <Link to="/dashboard" className="block hover:text-gray-200 transition">Dashboard</Link>}
-              {user.role === "admin" && <Link to="/admin" className="block hover:text-gray-200 transition">Admin</Link>}
-              <button
-                onClick={() => { logout(); setOpen(false); }}
-                className="w-full bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition shadow-sm"
+      <div
+        className={`md:hidden bg-white border-t border-gray-200 text-gray-800 px-6 py-4 font-medium space-y-3 transition-all duration-300 ${
+          open ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        {!isLoggedIn && (
+          <Link
+            to="/login"
+            onClick={() => setOpen(false)}
+            className="block hover:text-blue-600 transition duration-300"
+          >
+            Login
+          </Link>
+        )}
+
+        {isLoggedIn && (
+          <>
+            <Link
+              to="/upload"
+              onClick={() => setOpen(false)}
+              className="block hover:text-blue-600 transition duration-300"
+            >
+              Upload
+            </Link>
+            <Link
+              to="/track"
+              onClick={() => setOpen(false)}
+              className="block hover:text-blue-600 transition duration-300"
+            >
+              Track
+            </Link>
+
+            {user.role === "user" && (
+              <Link
+                to="/dashboard"
+                onClick={() => setOpen(false)}
+                className="block hover:text-blue-600 transition duration-300"
               >
-                Logout
-              </button>
-            </>
-          )}
-        </div>
-      )}
+                Dashboard
+              </Link>
+            )}
+            {user.role === "admin" && (
+              <Link
+                to="/admin"
+                onClick={() => setOpen(false)}
+                className="block hover:text-blue-600 transition duration-300"
+              >
+                Admin
+              </Link>
+            )}
+
+            <button
+              onClick={() => {
+                logout();
+                setOpen(false);
+              }}
+              className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300 shadow-sm"
+            >
+              Logout
+            </button>
+          </>
+        )}
+      </div>
     </nav>
   );
 }

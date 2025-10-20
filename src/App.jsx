@@ -11,6 +11,8 @@ import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Unauthorized from "./pages/Unauthorized";
 import "./App.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function App() {
   return (
