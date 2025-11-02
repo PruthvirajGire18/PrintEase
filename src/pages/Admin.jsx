@@ -9,7 +9,7 @@ function Admin() {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/orders");
+      const res = await axios.get("https://print-ease-backend-tau.vercel.app/api/admin/orders");
       setOrders(res.data);
     } catch (err) {
       console.error(err);
@@ -25,7 +25,7 @@ function Admin() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/orders/${id}/status`, { status });
+      await axios.put(`https://print-ease-backend-tau.vercel.app/api/admin/orders/${id}/status`, { status });
       fetchOrders();
     } catch (err) {
       console.error(err);
@@ -36,7 +36,7 @@ function Admin() {
   const deleteOrder = async (id) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/orders/${id}`);
+      await axios.delete(`https://print-ease-backend-tau.vercel.app/api/admin/orders/${id}`);
       fetchOrders();
     } catch (err) {
       console.error(err);

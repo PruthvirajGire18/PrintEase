@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { FiMail, FiLock } from "react-icons/fi";
 
 function Login() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // For signup navigation only
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -15,7 +15,7 @@ function Login() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:5000/api/login", {
+      const res = await axios.post("https://print-ease-backend-tau.vercel.app/api/login", {
         email,
         password,
       });
@@ -26,11 +26,10 @@ function Login() {
       });
       navigate(res.data.user.role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {
-      console.error(err.response?.data);
-      alert(err.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
+      console.error("Login error:", err);
+      console.error("Error details:", err.response?.data);
+      alert(err.response?.data?.message || err.message || "Login failed");
+    } finally { setLoading(false); }
   };
 
   return (

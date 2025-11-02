@@ -12,7 +12,7 @@ function Dashboard() {
     const fetchUserOrders = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/admin/user-orders/${userId}`
+          `https://print-ease-backend-tau.vercel.app/api/admin/user-orders/${userId}`
         );
         setOrders(res.data);
       } catch (err) {

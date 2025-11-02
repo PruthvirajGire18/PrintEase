@@ -12,7 +12,7 @@ function Track() {
     if (!tokenId.trim()) return alert("Please enter Token ID");
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/track/${tokenId}`);
+      const res = await axios.get(`https://print-ease-backend-tau.vercel.app/api/track/${tokenId}`);
       setOrder(res.data);
     } catch (err) {
       setOrder(null);

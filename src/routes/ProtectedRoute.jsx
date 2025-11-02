@@ -1,17 +1,17 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const ProtectedRoute = ({ children, allowedRoles, loading }) => {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const { user, loading } = useAuth();
 
   if (loading) {
     return <div className="text-center mt-20">Loading...</div>; // ⚡ Loading while auth check
   }
 
-  if (!token) return <Navigate to="/login" />;
+  if (!user.token) return <Navigate to="/login" />;
 
-  if (!allowedRoles.includes(role)) return <Navigate to="/unauthorized" />;
+  if (!allowedRoles.includes(user.role)) return <Navigate to="/unauthorized" />;
 
   return children;
 };

@@ -15,7 +15,7 @@ function Signup() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:5000/api/signup", { name, email, password, role });
+      const res = await axios.post("https://print-ease-backend-tau.vercel.app/api/signup", { name, email, password, role });
       alert(res.data.message);
       navigate("/login");
     } catch (err) {
